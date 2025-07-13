@@ -36,7 +36,7 @@ export default function SearchBar({ list, filterList }) {
           type="submit"
           variant="contained"
           size="medium"
-          id="searchBtn"
+          id="#searchBtn"
           startIcon={<SearchIcon />}
           sx={{ py: "15px", px: 8, flexShrink: 0 }}
           disableElevation
