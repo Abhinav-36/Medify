@@ -1,18 +1,13 @@
-FROM node:18-alpine
-# Set working directory inside container
+# Build stage
+FROM node:18-alpine AS builder
 WORKDIR /usr/src/app
-
-# Copy package.json and package-lock.json first (for caching dependencies)
 COPY package*.json ./
-
-# Install dependencies
-RUN npm install --production
-
-# Copy rest of the application code
+RUN npm install
 COPY . .
 
-# Expose the port your app runs on
+# Production stage
+FROM node:18-alpine
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app .
 EXPOSE 3000
-
-# Run the application
-CMD ["node", "server.js"]
+CMD ["node", "./src/index.js"]
